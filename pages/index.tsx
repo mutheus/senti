@@ -1,8 +1,6 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import styled from 'styled-components/macro'
-import Logo from 'public/logo.svg'
-import Arrow from 'public/assets/arrow.svg'
+import { Header } from 'components/header'
 import { AppContext } from './app-context'
 import { useContext } from 'react'
 
@@ -10,37 +8,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
-`
-
-const Header = styled.header`
-  padding: 2em;
-  color: #fff;
-  display: flex;
-  align-items: center;
-`
-
-const LogoWrapper = styled.a`
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  h1 {
-    font-family: 'Vollkorn', serif;
-    font-size: 18px;
-    margin: 0;
-  }
-`
-
-const Login = styled.a`
-  text-decoration: none;
-  font-family: 'Mate', serif;
-  color: inherit;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 4px;
 `
 
 const Hero = styled.div`
@@ -100,23 +67,8 @@ export default function Home () {
         <meta name="description" content="Senti app" />
       </Head>
 
-      <Header>
-        <Link href="/" passHref>
-          <LogoWrapper>
-            <Logo />
+      <Header />
 
-            <h1>Senti</h1>
-          </LogoWrapper>
-        </Link>
-
-        <Link href="/" passHref>
-          <Login>
-            <Arrow />
-
-            Log in
-          </Login>
-        </Link>
-      </Header>
       <Hero>
         <div>
           <Title>Playing the mood.</Title>

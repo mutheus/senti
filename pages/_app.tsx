@@ -1,5 +1,7 @@
 import type { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components/macro'
+import AppContext from './app-context'
+
 import 'normalize.css'
 
 const GlobalStyle = createGlobalStyle`
@@ -8,7 +10,6 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Mate', serif;
     background-color: #4446FE;
     color: #151A1C;
   }
@@ -16,12 +17,10 @@ const GlobalStyle = createGlobalStyle`
 
 function MyApp ({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <AppContext>
       <GlobalStyle />
-      <main>
-        <Component {...pageProps} />
-      </main>
-    </>
+      <Component {...pageProps} />
+    </AppContext>
   )
 }
 

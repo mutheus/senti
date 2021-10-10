@@ -3,6 +3,8 @@ import Link from 'next/link'
 import styled from 'styled-components/macro'
 import Logo from 'public/logo.svg'
 import Arrow from 'public/assets/arrow.svg'
+import { AppContext } from './app-context'
+import { useContext } from 'react'
 
 const Wrapper = styled.div`
   display: grid;
@@ -25,6 +27,7 @@ const LogoWrapper = styled.a`
   gap: 4px;
 
   h1 {
+    font-family: 'Vollkorn', serif;
     font-size: 18px;
     margin: 0;
   }
@@ -32,6 +35,7 @@ const LogoWrapper = styled.a`
 
 const Login = styled.a`
   text-decoration: none;
+  font-family: 'Mate', serif;
   color: inherit;
   margin-left: auto;
   display: flex;
@@ -87,6 +91,8 @@ const Input = styled.input`
 `
 
 export default function Home () {
+  const { inputValue, handleInputValue, handleEnterKey } = useContext(AppContext)
+
   return (
     <Wrapper>
       <Head>
@@ -117,7 +123,7 @@ export default function Home () {
 
           <Paragraph>Get recomended songs based on your city’s weather</Paragraph>
 
-          <Input placeholder="Type your city" />
+          <Input value={inputValue} onChange={handleInputValue} onKeyUp={handleEnterKey} placeholder="Type your city" />
         </div>
       </Hero>
     </Wrapper>

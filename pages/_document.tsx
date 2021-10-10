@@ -14,6 +14,7 @@ class MyDocument extends Document {
         })
 
       const initialProps = await Document.getInitialProps(ctx)
+
       return {
         ...initialProps,
         styles: (
@@ -33,8 +34,13 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="manifest" href="/manifest.json" />
+          <link rel="icon" type="image/svg+xml" href="assets/favicons/favicon.svg" />
+          <link rel="icon" href="assets/favicons/favicon.png" />
           <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
-          <meta name="theme-color" content="#111" />
+          <meta name="theme-color" content="#151A1C" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+          <link href="https://fonts.googleapis.com/css2?family=Mate&family=Vollkorn:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />

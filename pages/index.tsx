@@ -1,13 +1,11 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
 
-const Home: NextPage = () => {
+export default function Home () {
   return (
     <>
       <Head>
         <title>Senti</title>
         <meta name="description" content="Senti app" />
-        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <div>
@@ -16,5 +14,3 @@ const Home: NextPage = () => {
     </>
   )
 }
-
-export default Home

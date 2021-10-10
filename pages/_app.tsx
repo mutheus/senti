@@ -1,20 +1,26 @@
 import type { AppProps } from 'next/app'
-import styled from 'styled-components/macro'
+import { createGlobalStyle } from 'styled-components/macro'
 import 'normalize.css'
 
-const Main = styled.main`
-  h1 {
-    font-family: system-ui, sans-serif;
-    font-size: 12px;
+const GlobalStyle = createGlobalStyle`
+  html {
+    font-size: 100%;
+  }
+
+  body {
+    font-family: 'Vollkorn', serif;
+    font-family: 'Mate', serif;
+    color: #212121;
   }
 `
 
 function MyApp ({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Main>
+      <GlobalStyle />
+      <main>
         <Component {...pageProps} />
-      </Main>
+      </main>
     </>
   )
 }

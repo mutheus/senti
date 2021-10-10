@@ -8,9 +8,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Vollkorn', serif;
     font-family: 'Mate', serif;
-    color: #212121;
+    background-color: #4446FE;
+    color: #151A1C;
   }
 `
 

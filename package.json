@@ -12,6 +12,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/styled-components": "^5.1.15",
     "next": "11.1.2",
     "next-pwa": "^5.3.1",

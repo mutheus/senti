@@ -27,6 +27,7 @@ type AppContextData = {
   saveInLocalStorage: (songs: SongType[]) => void
   playlists: SongType[][]
   isSaved: boolean
+  updatePlaylists: (data: SongType[][]) => void
 }
 
 type AppProviderProps = {
@@ -70,6 +71,10 @@ const AppProvider = ({ children }: AppProviderProps) => {
     setIsSaved(true)
   }
 
+  const updatePlaylists = (data: SongType[][]) => {
+    setPlaylists(data)
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -83,6 +88,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
         playlists,
         saveInLocalStorage,
         isSaved,
+        updatePlaylists,
       }}
     >
       {children}

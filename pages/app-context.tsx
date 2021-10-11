@@ -4,6 +4,8 @@ import {
   ReactNode,
   ChangeEvent,
   KeyboardEvent,
+  Dispatch,
+  SetStateAction,
 } from 'react'
 import { useRouter } from 'next/router'
 import localforage from 'localforage'
@@ -28,6 +30,8 @@ type AppContextData = {
   playlists: SongType[][]
   isSaved: boolean
   updatePlaylists: (data: SongType[][]) => void
+  setIsSaved: Dispatch<SetStateAction<boolean>>
+  setPlaylists: Dispatch<SetStateAction<SongType[][]>>
 }
 
 type AppProviderProps = {
@@ -89,6 +93,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
         saveInLocalStorage,
         isSaved,
         updatePlaylists,
+        setIsSaved,
+        setPlaylists,
       }}
     >
       {children}

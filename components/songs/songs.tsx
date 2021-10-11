@@ -1,15 +1,12 @@
 import { AppContext } from 'pages/app-context'
 import { useContext, useEffect } from 'react'
-import styled from 'styled-components'
 import useSWR from 'swr'
 import { format } from 'date-fns'
+import { nanoid } from 'nanoid'
+import * as S from './styles'
 
 type SongsProps = {
   temp: number
-}
-
-type SaveButtonProps = {
-  disabled: boolean
 }
 
 type SongType = {
@@ -34,77 +31,11 @@ type DataType = {
   track: TrackType
 }
 
-const ListWrapper = styled.ul`
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2em;
-  margin-top: 2.5em;
-`
-
-const ListItem = styled.li`
-  list-style: none;
-  max-width: 140px;
-  margin: 0 auto;
-  font-family: 'Mate', serif;
-  color: #151A1C;
-  text-align: start;
-`
-
-const SongLink = styled.a`
-  color: inherit;
-  text-decoration: none;
-`
-
-const SongCover = styled.img`
-  width: 100%;
-  max-width: 140px;
-  aspect-ratio: 1/1;
-`
-
-const SongTitle = styled.h3`
-  margin: 4px 0;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-`
-
-const SongSubtitle = styled.p`
-  margin: 0;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-`
-
-const SaveButton = styled.button<SaveButtonProps>`
-  height: 37px;
-  padding: 0 1em;
-  background-color: #151A1C;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 6px;
-  font-family: 'Mate', serif;
-  margin: 2em auto;
-  cursor: pointer;
-
-  &:disabled {
-    opacity: .7;
-  }
-
-  &:active {
-    transform: translateY(2px);
-  }
-`
-
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function Songs ({ temp }: SongsProps) {
-  const { cityName, isSaved, genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
-  const url = `https://shazam.p.rapidapi.com/search?term=${genre}&rapidapi-key=3750f6807emshab3fe27b1c01123p17c1d5jsn51b8e98b58c5&locale=en-US&offset=0&limit=4`
+  const { cityName, isSaved, setIsSaved, genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
+  const url = `https://shazam.p.rapidapi.com/search?term=${genre}&rapidapi-key=026911d58fmsha6abfaa78bf85ddp143d59jsn4bc9e8df902b&locale=en-US&offset=0&limit=4`
   const { data, error } = useSWR(url, fetcher)
 
   useEffect(() => {
@@ -119,13 +50,17 @@ export function Songs ({ temp }: SongsProps) {
     }
   }, [temp, updateGenre])
 
+  useEffect(() => {
+    setIsSaved(false)
+  }, [setIsSaved])
+
   if (error) return <p>Failed to load</p>
 
   if (!data) return <p>Loading...</p>
 
   const songs = data.tracks.hits.map((item: DataType) => {
     return {
-      id: item.track.key,
+      id: nanoid(),
       date: format(new Date(), 'MMM dd, yyyy • HH:mm'),
       temperature: temp,
       city: cityName,
@@ -139,26 +74,26 @@ export function Songs ({ temp }: SongsProps) {
 
   return (
     <>
-      <ListWrapper>
+      <S.ListWrapper>
         {songs.map((song: SongType) => (
-          <ListItem key={song.id}>
-            <SongLink href={song.url}>
-              <SongCover src={song.image} alt={song.title} />
+          <S.ListItem key={song.id}>
+            <S.SongLink href={song.url} target="_blank">
+              <S.SongCover src={song.image} alt={song.title} />
 
-              <SongTitle>{song.title}</SongTitle>
+              <S.SongTitle>{song.title}</S.SongTitle>
 
-              <SongSubtitle>{song.subtitle}</SongSubtitle>
-            </SongLink>
-          </ListItem>
+              <S.SongSubtitle>{song.subtitle}</S.SongSubtitle>
+            </S.SongLink>
+          </S.ListItem>
         ))}
-      </ListWrapper>
+      </S.ListWrapper>
 
-      <SaveButton
+      <S.SaveButton
         disabled={isSaved}
         onClick={() => saveInLocalStorage(songs)}
       >
         Save Playlist
-      </SaveButton>
+      </S.SaveButton>
     </>
   )
 }

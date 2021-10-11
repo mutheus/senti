@@ -1,4 +1,10 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 class MyDocument extends Document {
@@ -37,7 +43,7 @@ class MyDocument extends Document {
           <link rel="icon" type="image/svg+xml" href="assets/favicons/favicon.svg" />
           <link rel="icon" href="assets/favicons/favicon.png" />
           <link rel="apple-touch-icon" href="assets/favicons/apple-touch-icon.png"></link>
-          <meta name="theme-color" content="#151A1C" />
+          <meta name="theme-color" content="#4446FE" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link href="https://fonts.googleapis.com/css2?family=Mate&family=Vollkorn:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet"></link>

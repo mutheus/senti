@@ -5,9 +5,13 @@ import { useContext } from 'react'
 
 const Hero = styled.div`
   background-image: url('/assets/shape.svg');
-  font-family: 'Vollkorn', serif;
   background-repeat: no-repeat;
-  color: #9494F8;
+  background-position: 20% 0%;
+
+  @media (min-width: 600px) {
+    background-position: 30% 30%;
+  }
+
   text-align: center;
   display: flex;
   align-items: center;

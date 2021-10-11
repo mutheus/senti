@@ -4,6 +4,7 @@
     "standard"
   ],
   "rules": {
+    "@next/next/no-img-element": "off",
     "comma-dangle": [
       "error",
       {

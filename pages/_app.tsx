@@ -12,7 +12,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: #4446FE;
-    color: #151A1C;
+    font-family: 'Vollkorn', serif;
+    color: #9494F8;
   }
 `
 const Wrapper = styled.div`

@@ -2,6 +2,7 @@ import { AppContext } from 'pages/app-context'
 import { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import useSWR from 'swr'
+import { format } from 'date-fns'
 
 type SongsProps = {
   temp: number
@@ -90,7 +91,7 @@ const SaveButton = styled.button`
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function Songs ({ temp }: SongsProps) {
-  const { genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
+  const { cityName, genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
   const url = `https://shazam.p.rapidapi.com/search?term=${genre}&rapidapi-key=3750f6807emshab3fe27b1c01123p17c1d5jsn51b8e98b58c5&locale=en-US&offset=0&limit=4`
   const { data, error } = useSWR(url, fetcher)
 
@@ -113,6 +114,10 @@ export function Songs ({ temp }: SongsProps) {
   const songs = data.tracks.hits.map((item: DataType) => {
     return {
       id: item.track.key,
+      date: format(new Date(), 'MMM dd, yyyy • HH:mm'),
+      temperature: temp,
+      city: cityName,
+      genre,
       title: item.track.title,
       subtitle: item.track.subtitle,
       url: item.track.url,

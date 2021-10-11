@@ -3,7 +3,52 @@ import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Songs } from 'components/songs'
 import useSWR from 'swr'
-import * as S from './styles'
+import styled from 'styled-components'
+
+const Content = styled.div`
+  background: url('/assets/shape2.svg') no-repeat 50% 0%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2em;
+  padding: 0 1em 6em;
+`
+
+const Title = styled.h1`
+  font-size: 36px;
+  max-width: 261px;
+  margin: 0 auto;
+`
+
+const CurrentWeather = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+  align-items: center;
+
+  img {
+    width: 71px;
+    aspect-ratio: 1/1;
+  }
+`
+
+const Temp = styled.h2`
+  font-size: 36px;
+  font-family: 'Vollkorn', serif;
+  margin: 0;
+`
+
+const City = styled.p`
+  margin: 0;
+  font-family: 'Mate', serif;
+`
+
+const Empty = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
@@ -19,33 +64,33 @@ export default function Recommended () {
     }
   }, [cityName, router])
 
-  if (error) return <S.Empty><span>Failed to load</span></S.Empty>
+  if (error) return <Empty><span>Failed to load</span></Empty>
 
-  if (!data) return <S.Empty><span>Loading...</span></S.Empty>
+  if (!data) return <Empty><span>Loading...</span></Empty>
 
   const weatherIcon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`
   const temp = Number(parseInt(data.main.temp).toFixed(0))
 
   return (
     <>
-      <S.Content>
-        <S.CurrentWeather>
+      <Content>
+        <CurrentWeather>
           <img
             src={weatherIcon}
             alt="Weather icon"
           />
 
-          <S.Temp>{temp}ºC</S.Temp>
+          <Temp>{temp}ºC</Temp>
 
-          <S.City>{data.name}</S.City>
-        </S.CurrentWeather>
+          <City>{data.name}</City>
+        </CurrentWeather>
 
         <div>
-          <S.Title>What about some <i>{genre}</i> beauty?</S.Title>
+          <Title>What about some <i>{genre}</i> beauty?</Title>
 
           <Songs temp={temp} />
         </div>
-      </S.Content>
+      </Content>
     </>
   )
 }

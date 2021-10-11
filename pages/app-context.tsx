@@ -1,5 +1,20 @@
-import { createContext, useState, ReactNode, ChangeEvent, KeyboardEvent } from 'react'
+import {
+  createContext,
+  useState,
+  ReactNode,
+  ChangeEvent,
+  KeyboardEvent,
+} from 'react'
 import { useRouter } from 'next/router'
+import localforage from 'localforage'
+
+type SongType = {
+  id: string
+  title: string
+  subtitle: string
+  url: string
+  image: string
+}
 
 type AppContextData = {
   inputValue: string
@@ -9,6 +24,8 @@ type AppContextData = {
   cityName: string
   handleInputValue: (e: ChangeEvent<HTMLInputElement>) => void
   handleEnterKey: (e: KeyboardEvent<HTMLInputElement>) => void
+  saveInLocalStorage: (songs: SongType[]) => void
+  playlists: SongType[][]
 }
 
 type AppProviderProps = {
@@ -22,6 +39,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const [cityName, setCityName] = useState<string>('')
   const [isLogIn, setIsLogIn] = useState<boolean>(false)
   const [genre, setGenre] = useState<string>('')
+  const [playlists, setPlaylists] = useState<SongType[][]>([])
   const router = useRouter()
 
   const handleInputValue = (e:ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +49,21 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const handleEnterKey = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       setCityName(inputValue)
-      router.push('/recommended/new')
+      router.push('/recommended/songs')
       setIsLogIn(true)
     }
   }
 
   const updateGenre = (genreName: string) => {
     setGenre(genreName)
+  }
+
+  const saveInLocalStorage = (songs: SongType[]) => {
+    const newPlaylistsArr: SongType[][] = [songs, ...playlists]
+
+    setPlaylists(newPlaylistsArr)
+
+    localforage.setItem('playlists', newPlaylistsArr)
   }
 
   return (
@@ -50,6 +76,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
         isLogIn,
         genre,
         updateGenre,
+        playlists,
+        saveInLocalStorage,
       }}
     >
       {children}

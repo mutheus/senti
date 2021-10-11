@@ -8,6 +8,10 @@ type SongsProps = {
   temp: number
 }
 
+type SaveButtonProps = {
+  disabled: boolean
+}
+
 type SongType = {
   id: string
   title: string
@@ -73,7 +77,7 @@ const SongSubtitle = styled.p`
   white-space: nowrap;
 `
 
-const SaveButton = styled.button`
+const SaveButton = styled.button<SaveButtonProps>`
   height: 37px;
   padding: 0 1em;
   background-color: #151A1C;
@@ -86,12 +90,20 @@ const SaveButton = styled.button`
   font-family: 'Mate', serif;
   margin: 2em auto;
   cursor: pointer;
+
+  &:disabled {
+    opacity: .7;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
 `
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function Songs ({ temp }: SongsProps) {
-  const { cityName, genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
+  const { cityName, isSaved, genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
   const url = `https://shazam.p.rapidapi.com/search?term=${genre}&rapidapi-key=3750f6807emshab3fe27b1c01123p17c1d5jsn51b8e98b58c5&locale=en-US&offset=0&limit=4`
   const { data, error } = useSWR(url, fetcher)
 
@@ -141,7 +153,12 @@ export function Songs ({ temp }: SongsProps) {
         ))}
       </ListWrapper>
 
-      <SaveButton onClick={() => saveInLocalStorage(songs)}>Save Playlist</SaveButton>
+      <SaveButton
+        disabled={isSaved}
+        onClick={() => saveInLocalStorage(songs)}
+      >
+        Save Playlist
+      </SaveButton>
     </>
   )
 }

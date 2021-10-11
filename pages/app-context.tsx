@@ -26,6 +26,7 @@ type AppContextData = {
   handleEnterKey: (e: KeyboardEvent<HTMLInputElement>) => void
   saveInLocalStorage: (songs: SongType[]) => void
   playlists: SongType[][]
+  isSaved: boolean
 }
 
 type AppProviderProps = {
@@ -40,6 +41,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const [isLogIn, setIsLogIn] = useState<boolean>(false)
   const [genre, setGenre] = useState<string>('')
   const [playlists, setPlaylists] = useState<SongType[][]>([])
+  const [isSaved, setIsSaved] = useState(false)
   const router = useRouter()
 
   const handleInputValue = (e:ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +66,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
     setPlaylists(newPlaylistsArr)
 
     localforage.setItem('playlists', newPlaylistsArr)
+
+    setIsSaved(true)
   }
 
   return (
@@ -78,6 +82,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
         updateGenre,
         playlists,
         saveInLocalStorage,
+        isSaved,
       }}
     >
       {children}

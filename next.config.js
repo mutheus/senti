@@ -23,6 +23,6 @@ module.exports = withPWA({
     disable: process.env.NODE_ENV === 'development',
   },
   images: {
-    domains: ['openweathermap.org'],
+    domains: ['openweathermap.org', 'is2-ssl.mzstatic.com'],
   },
 })

@@ -38,7 +38,7 @@ const Input = styled.input`
   background-image: url('/assets/search.svg');
   background-position: 7% 50%;
   background-repeat: no-repeat;
-  height: 47px;
+  height: 37px;
   max-width: 205px;
   border-radius: 4px;
   padding: 0 1em;

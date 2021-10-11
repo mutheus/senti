@@ -16,6 +16,7 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 2em;
+  padding: 0 1em 6em;
 `
 
 const Title = styled.h1`

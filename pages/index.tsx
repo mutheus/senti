@@ -1,14 +1,7 @@
 import Head from 'next/head'
 import styled from 'styled-components/macro'
-import { Header } from 'components/header'
 import { AppContext } from './app-context'
 import { useContext } from 'react'
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr;
-  min-height: 100vh;
-`
 
 const Hero = styled.div`
   background-image: url('/assets/shape.svg');
@@ -61,14 +54,11 @@ export default function Home () {
   const { inputValue, handleInputValue, handleEnterKey } = useContext(AppContext)
 
   return (
-    <Wrapper>
+    <>
       <Head>
         <title>Senti</title>
         <meta name="description" content="Senti app" />
       </Head>
-
-      <Header />
-
       <Hero>
         <div>
           <Title>Playing the mood.</Title>
@@ -78,6 +68,6 @@ export default function Home () {
           <Input value={inputValue} onChange={handleInputValue} onKeyUp={handleEnterKey} placeholder="Type your city" />
         </div>
       </Hero>
-    </Wrapper>
+    </>
   )
 }

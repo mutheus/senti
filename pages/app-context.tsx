@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 
 type AppContextData = {
   inputValue: string
+  genre: string
+  updateGenre: (genreName: string) => void
   isLogIn: boolean
   cityName: string
   handleInputValue: (e: ChangeEvent<HTMLInputElement>) => void
@@ -18,7 +20,8 @@ export const AppContext = createContext({} as AppContextData)
 const AppProvider = ({ children }: AppProviderProps) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [cityName, setCityName] = useState<string>('')
-  const [isLogIn, setIsLogIn] = useState(false)
+  const [isLogIn, setIsLogIn] = useState<boolean>(false)
+  const [genre, setGenre] = useState<string>('')
   const router = useRouter()
 
   const handleInputValue = (e:ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +36,10 @@ const AppProvider = ({ children }: AppProviderProps) => {
     }
   }
 
+  const updateGenre = (genreName: string) => {
+    setGenre(genreName)
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -41,6 +48,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
         handleInputValue,
         handleEnterKey,
         isLogIn,
+        genre,
+        updateGenre,
       }}
     >
       {children}

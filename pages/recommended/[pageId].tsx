@@ -2,6 +2,7 @@
 import { AppContext } from 'pages/app-context'
 import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { Songs } from 'components/songs'
 import styled from 'styled-components/macro'
 import useSWR from 'swr'
 
@@ -44,10 +45,10 @@ const City = styled.p`
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export default function Recommended () {
-  const { cityName } = useContext(AppContext)
+  const { cityName, genre } = useContext(AppContext)
   const router = useRouter()
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=b840b3e20286ec45c862fa996351413d&lang=pt_br&units=metric`
-  const { data } = useSWR(url, fetcher)
+  const { data, error } = useSWR(url, fetcher)
 
   useEffect(() => {
     if (cityName === '') {
@@ -55,9 +56,12 @@ export default function Recommended () {
     }
   }, [cityName, router])
 
-  if (!data) return <div>Loading...</div>
+  if (error) return <Content>Failed to load</Content>
+
+  if (!data) return <Content>Loading...</Content>
 
   const weatherIcon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`
+  const temp = Number(parseInt(data.main.temp).toFixed(0))
 
   return (
     <>
@@ -70,13 +74,15 @@ export default function Recommended () {
             alt="Weather icon"
           />
 
-          <Temp>{parseInt(data.main.temp).toFixed(0)}ºC</Temp>
+          <Temp>{temp}ºC</Temp>
 
           <City>{data.name}</City>
         </CurrentWeather>
 
         <div>
-          <Title>What about some <i>classical</i> beauty?</Title>
+          <Title>What about some <i>{genre}</i> beauty?</Title>
+
+          <Songs temp={temp} />
         </div>
       </Content>
     </>

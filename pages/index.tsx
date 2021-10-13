@@ -67,7 +67,7 @@ export default function Home () {
         <div>
           <Title>Playing the mood.</Title>
 
-          <Paragraph>Get recomended songs based on your city’s weather</Paragraph>
+          <Paragraph>Get recommended songs based on your city’s weather</Paragraph>
 
           <Input value={inputValue} onChange={handleInputValue} onKeyUp={handleEnterKey} placeholder="Type your city" />
         </div>

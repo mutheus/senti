@@ -64,7 +64,7 @@ export function Header () {
               <li>
                 <Arrow />
 
-                Settigns
+                Settings
               </li>
               <li>
                 <Arrow />

@@ -33,17 +33,17 @@ type DataType = {
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
-export function Songs ({ temp }: SongsProps) {
+export function SongsList ({ temp }: SongsProps) {
   const { cityName, isSaved, setIsSaved, genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
   const url = `https://shazam.p.rapidapi.com/search?term=${genre}&rapidapi-key=026911d58fmsha6abfaa78bf85ddp143d59jsn4bc9e8df902b&locale=en-US&offset=0&limit=4`
   const { data, error } = useSWR(url, fetcher)
 
   useEffect(() => {
-    if (temp > 32) {
+    if (temp >= 32) {
       updateGenre('rock')
-    } else if (temp < 32 && temp > 24) {
+    } else if (temp < 32 && temp >= 24) {
       updateGenre('pop')
-    } else if (temp < 24 && temp > 16) {
+    } else if (temp < 24 && temp >= 16) {
       updateGenre('classical')
     } else {
       updateGenre('lofi')

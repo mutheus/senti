@@ -6,6 +6,7 @@ import {
   KeyboardEvent,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react'
 import { useRouter } from 'next/router'
 import localforage from 'localforage'
@@ -48,6 +49,18 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const [playlists, setPlaylists] = useState<SongType[][]>([])
   const [isSaved, setIsSaved] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    async function getItem () {
+      const data = await localforage.getItem<SongType[][]>('playlists')
+
+      if (data) {
+        setPlaylists(data)
+      }
+    }
+
+    getItem()
+  }, [setPlaylists])
 
   const handleInputValue = (e:ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)

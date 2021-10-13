@@ -22,6 +22,8 @@ $ npm install
 $ npm run dev
 ```
 
+<hr>
+
 <p align="center">
   Made with 💙 by Matheus Almeida
 </p>

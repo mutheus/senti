@@ -10,6 +10,7 @@ const Content = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: 2em;
   padding: 0 1em 6em;
@@ -44,13 +45,6 @@ const City = styled.p`
   font-family: 'Mate', serif;
 `
 
-const Empty = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`
-
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export default function Recommended () {
@@ -65,9 +59,9 @@ export default function Recommended () {
     }
   }, [cityName, router])
 
-  if (!data) return <Empty><span>Loading...</span></Empty>
+  if (!data) return <Content><h3>Loading...</h3></Content>
 
-  if (data.cod !== 200) return <Empty><h3>{data.message}</h3></Empty>
+  if (data.cod !== 200) return <Content><h3>{data.message}</h3></Content>
 
   const weatherIcon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`
   const temp = Number(parseInt(data.main.temp).toFixed(0))

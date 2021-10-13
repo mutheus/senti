@@ -27,25 +27,27 @@ const Title = styled.h1`
   margin-top: 2em;
 `
 
-const Empty = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const Empty = styled.p`
+  grid-column: 1/3;
 `
 
 export default function Playlists () {
   const { playlists } = useContext(AppContext)
-
-  if (playlists.length === 0) return <Empty><span>You do not have a playlist yet</span></Empty>
 
   return (
     <Content>
       <Title>Saved playlists</Title>
 
       <ListWrapper>
-        {playlists.map((item, index) => (
-          <PlaylistItem key={item[0].id} item={item} index={index} />
-        ))}
+        {playlists.length === 0
+          ? (
+            <Empty>You do not have a playlist yet</Empty>
+            )
+          : (
+              playlists.map((item, index) => (
+                <PlaylistItem key={item[0].id} item={item} index={index} />
+              ))
+            )}
       </ListWrapper>
     </Content>
   )

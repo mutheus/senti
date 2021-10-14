@@ -35,7 +35,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function SongsList ({ temp }: SongsProps) {
   const { cityName, isSaved, setIsSaved, genre, updateGenre, saveInLocalStorage } = useContext(AppContext)
-  const url = `https://shazam.p.rapidapi.com/search?term=${genre}&rapidapi-key=026911d58fmsha6abfaa78bf85ddp143d59jsn4bc9e8df902b&locale=en-US&offset=0&limit=4`
+  const url = `https://shazam.p.rapidapi.com/search?term=${genre}&rapidapi-key=a589ac6bdcmshc90497431f815eep1d2c5ejsnfbad297d720d&locale=en-US&offset=0&limit=4`
   const { data, error } = useSWR(url, fetcher)
 
   useEffect(() => {
